@@ -1,6 +1,6 @@
 package logging;
 
-import com.sun.istack.internal.logging.Logger;
+import java.util.logging.Logger;
 
 public class OtherClass {
 	private Logger logger;
@@ -12,9 +12,7 @@ public class OtherClass {
 		logger.fine("fine messgage from other class");
 		logger.info("Info message from other class");
 		logger.warning("Warning message from other class");
-		
-		
-		
+			
 	}
 
 }
