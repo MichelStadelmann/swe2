@@ -105,42 +105,42 @@ public class LottoModel {
 
 		if (anzahlRichtige == 6) {
 			System.out.println("CHF 1'000'000.");
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 1'000'000.-";
+			gewinnanzeige = " Gewinn: CHF 1'000'000.-";
 		}
 
 		if (anzahlRichtige == 5 && glückszahlGetroffen) {
 			System.out.println("CHF 10'000.-");
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 10'000.-";
+			gewinnanzeige = " Gewinn: CHF 10'000.-";
 		}
 
 		if (anzahlRichtige == 5) {
 			System.out.println("CHF 1'000.-");
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 1'000.-";
+			gewinnanzeige = " Gewinn: CHF 1'000.-";
 		}
 
 		if (anzahlRichtige == 4 && glückszahlGetroffen) {
 			System.out.println("CHF 150.-");
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 150.-";
+			gewinnanzeige = " Gewinn: CHF 150.-";
 		}
 
 		if (anzahlRichtige == 4) {
 			System.out.println("CHF 75.-");
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 75.-";
+			gewinnanzeige = " Gewinn: CHF 75.-";
 		}
 
 		if (anzahlRichtige == 3 && glückszahlGetroffen) {
 			System.out.println("CHF 25.-");
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 25.-";
+			gewinnanzeige = " Gewinn: CHF 25.-";
 		}
 
 		if (anzahlRichtige == 3) {
 			System.out.println("CHF 10.-");
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 10.-";
+			gewinnanzeige = " Gewinn: CHF 10.-";
 		}
 
 		if (anzahlRichtige < 3) {
-			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Nichts gewonnen - vielleicht das nächste Mal?";
-			System.out.println("Nichts gewonnen - vielleicht das nächste Mal?");
+			System.out.println("Kein Gewinn");
+			gewinnanzeige = "Leider kein Gewinn";
 		}
 
 	}

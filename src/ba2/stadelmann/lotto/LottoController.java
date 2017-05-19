@@ -41,6 +41,7 @@ public class LottoController {
 
 			int gZahl = Integer.parseInt(view.tippGlückszahl.getText());
 			model.setGlückszahl(gZahl);
+
 			view.btnZiehung.setDisable(false);
 
 		});
@@ -99,6 +100,7 @@ public class LottoController {
 			model.prüfeRichtige(model.getZahlen(), model.getTipp());
 			model.prüfeGlückszahl(model.getGlückszahl());
 			model.gebeGewinnmeldung(model.getAnzahlRichtige());
+			view.getLblAnzahlRichtige().setText("Anzahl Richtige: " + (Integer.toString(model.getAnzahlRichtige())));
 			view.getLblGewinn().setText(model.getGewinnanzeige());
 
 		});

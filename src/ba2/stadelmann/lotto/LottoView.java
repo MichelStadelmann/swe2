@@ -76,6 +76,7 @@ public class LottoView {
 		for (int i = 0; i < 6; i++) {
 			tipp[i] = new TextField();
 			tipp[i].setMaxWidth(ZBREITE);
+			tipp[i].setMinWidth(ZBREITE);
 			tipp[i].setAlignment(Pos.CENTER);
 			root.add(tipp[i], i + 1, 1);
 		}
@@ -101,6 +102,7 @@ public class LottoView {
 		for (int i = 0; i < 6; i++) {
 			ziehung[i] = new TextField();
 			ziehung[i].setMaxWidth(ZBREITE);
+			ziehung[i].setMinWidth(ZBREITE);
 			ziehung[i].setAlignment(Pos.CENTER);
 			root.add(ziehung[i], i + 9, 7);
 		}
@@ -134,11 +136,16 @@ public class LottoView {
 		btnGewinn.setText("Gewinn berechnen");
 		root.add(btnGewinn, 0, 10);
 
+		lblAnzahlRichtige = new Label();
+		lblAnzahlRichtige.setText("Anzahl Richtige: ?");
+		lblAnzahlRichtige.getStyleClass().add("label_jackpot");
+		root.add(lblAnzahlRichtige, 0, 11);
+
 		lblGewinn = new Label();
 		model.berechneJackpot();
 		lblGewinn.setText(" Im Jackpot: " + model.getJackpot() + " CHF");
 		lblGewinn.getStyleClass().add("label_jackpot");
-		root.add(lblGewinn, 0, 11);
+		root.add(lblGewinn, 0, 12);
 
 		// IconSwissLotto = new Label();
 		// Image image = new
@@ -148,6 +155,7 @@ public class LottoView {
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("Lotto.css").toExternalForm());
+
 		stage.setScene(scene);
 		;
 	}
