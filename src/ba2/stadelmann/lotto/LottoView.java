@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -23,7 +24,7 @@ public class LottoView {
 	protected Button btnTipp;
 	protected TextField[] lottoscheinZahlen = new TextField[42];
 	private static final double HEIGHT = 600;
-	private static final double WIDTH = 900;
+	private static final double WIDTH = 1000;
 	private static final double ZBREITE = 40;
 	protected TextField[] tipp = new TextField[6];
 
@@ -40,6 +41,8 @@ public class LottoView {
 	protected Button btnGewinn;
 	private Label lblGewinn;
 	private Label lblGewinnabrechnung;
+	private Label lblAnzahlRichtige;
+	private Label IconSwissLotto;
 
 	public void setLblGewinn(Label lblGewinn) {
 		this.lblGewinn = lblGewinn;
@@ -50,20 +53,24 @@ public class LottoView {
 		this.model = model;
 
 		stage.setTitle("Swiss Lotto – niemand macht mehr Millionäre");
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/swisslotto.png")));
 
 		GridPane root = new GridPane();
 		root.setPrefSize(WIDTH, HEIGHT);
 
 		lblTipp = new Label();
 		lblTipp.setText("Mache deinen Tipp:");
+		lblTipp.getStyleClass().add("label_title");
 		root.add(lblTipp, 0, 0);
 
 		lblZahlen = new Label();
 		lblZahlen.setText("Zahlen");
+		lblZahlen.getStyleClass().add("label_lottoschein");
 		root.add(lblZahlen, 0, 1);
 
 		lblGlückszahl = new Label();
 		lblGlückszahl.setText("Glückszahl");
+		lblGlückszahl.getStyleClass().add("label_lottoschein");
 		root.add(lblGlückszahl, 0, 2);
 
 		for (int i = 0; i < 6; i++) {
@@ -84,39 +91,43 @@ public class LottoView {
 
 		lblZiehung = new Label();
 		lblZiehung.setText("Ziehung:");
-		root.add(lblZiehung, 0, 4);
+		lblZiehung.getStyleClass().add("label_title");
+		root.add(lblZiehung, 8, 4);
 
 		btnZiehung = new Button();
 		btnZiehung.setText("Ziehung starten");
-		root.add(btnZiehung, 0, 5);
+		root.add(btnZiehung, 8, 5);
 
 		for (int i = 0; i < 6; i++) {
 			ziehung[i] = new TextField();
 			ziehung[i].setMaxWidth(ZBREITE);
 			ziehung[i].setAlignment(Pos.CENTER);
-			root.add(ziehung[i], i + 1, 7);
+			root.add(ziehung[i], i + 9, 7);
 		}
 
 		btnKugelnRollen = new Button();
 		btnKugelnRollen.setText("Kugeln rollen lassen");
-		root.add(btnKugelnRollen, 0, 6);
+		root.add(btnKugelnRollen, 8, 6);
 
 		lblZahlen = new Label();
 		lblZahlen.setText("Zahlen");
-		root.add(lblZahlen, 0, 7);
+		lblZahlen.getStyleClass().add("label_lottoschein");
+		root.add(lblZahlen, 8, 7);
 
 		lblGlückszahl = new Label();
 		lblGlückszahl.setText("Glückszahl");
-		root.add(lblGlückszahl, 0, 8);
+		lblGlückszahl.getStyleClass().add("label_lottoschein");
+		root.add(lblGlückszahl, 8, 8);
 		;
 
 		ziehungGlückszahl = new TextField();
 		ziehungGlückszahl.setMaxWidth(ZBREITE);
 		ziehungGlückszahl.setAlignment(Pos.CENTER);
-		root.add(ziehungGlückszahl, 1, 8);
+		root.add(ziehungGlückszahl, 9, 8);
 
 		lblGewinnabrechnung = new Label();
 		lblGewinnabrechnung.setText("Gewinnabrechnung:");
+		lblGewinnabrechnung.getStyleClass().add("label_title");
 		root.add(lblGewinnabrechnung, 0, 9);
 
 		btnGewinn = new Button();
@@ -124,8 +135,16 @@ public class LottoView {
 		root.add(btnGewinn, 0, 10);
 
 		lblGewinn = new Label();
-		lblGewinn.setText("???$$$$££££???");
+		model.berechneJackpot();
+		lblGewinn.setText(" Im Jackpot: " + model.getJackpot() + " CHF");
+		lblGewinn.getStyleClass().add("label_jackpot");
 		root.add(lblGewinn, 0, 11);
+
+		// IconSwissLotto = new Label();
+		// Image image = new
+		// Image(getClass().getResourceAsStream("/swisslotto.png"));
+		// IconSwissLotto.setGraphic(new ImageView(image));
+		// root.add(IconSwissLotto, 15, 0);
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("Lotto.css").toExternalForm());
@@ -169,5 +188,13 @@ public class LottoView {
 
 	public Label getLblGewinn() {
 		return lblGewinn;
+	}
+
+	public Label getLblAnzahlRichtige() {
+		return lblAnzahlRichtige;
+	}
+
+	public void setLblAnzahlRichtige(Label lblAnzahlRichtige) {
+		this.lblAnzahlRichtige = lblAnzahlRichtige;
 	}
 }

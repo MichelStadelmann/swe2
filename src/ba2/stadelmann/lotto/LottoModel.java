@@ -19,6 +19,8 @@ public class LottoModel {
 	private int zufallszahl;
 	private int anzahlRichtige = 0;
 
+	private int jackpot = 0;
+
 	private String gewinnanzeige = new String();
 
 	public static void main(String[] args) {
@@ -98,46 +100,46 @@ public class LottoModel {
 
 		if (anzahlRichtige == 6 && glückszahlGetroffen) {
 			System.out.println("Jackpot");
-			gewinnanzeige = "Jackpot";
+			gewinnanzeige = "Sie haben den Jackpot geknackt!!! Der Gewinn beträgt: " + getJackpot();
 		}
 
 		if (anzahlRichtige == 6) {
 			System.out.println("CHF 1'000'000.");
-			gewinnanzeige = "CHF 1'000'000.-";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 1'000'000.-";
 		}
 
 		if (anzahlRichtige == 5 && glückszahlGetroffen) {
 			System.out.println("CHF 10'000.-");
-			gewinnanzeige = "CHF 10'000.-";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 10'000.-";
 		}
 
 		if (anzahlRichtige == 5) {
 			System.out.println("CHF 1'000.-");
-			gewinnanzeige = "CHF 1000.-";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 1'000.-";
 		}
 
 		if (anzahlRichtige == 4 && glückszahlGetroffen) {
 			System.out.println("CHF 150.-");
-			gewinnanzeige = "CHF 150.-";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 150.-";
 		}
 
 		if (anzahlRichtige == 4) {
 			System.out.println("CHF 75.-");
-			gewinnanzeige = "CHF 75.-";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 75.-";
 		}
 
 		if (anzahlRichtige == 3 && glückszahlGetroffen) {
 			System.out.println("CHF 25.-");
-			gewinnanzeige = "CHF 25.-";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 25.-";
 		}
 
 		if (anzahlRichtige == 3) {
 			System.out.println("CHF 10.-");
-			gewinnanzeige = "CHF 10.-";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Gewinn: CHF 10.-";
 		}
 
 		if (anzahlRichtige < 3) {
-			gewinnanzeige = "Nichts gewonnen - vielleicht das nächste Mal?";
+			gewinnanzeige = "Anzahl Richtige: " + anzahlRichtige + " Nichts gewonnen - vielleicht das nächste Mal?";
 			System.out.println("Nichts gewonnen - vielleicht das nächste Mal?");
 		}
 
@@ -174,6 +176,11 @@ public class LottoModel {
 
 		glückszahl = (int) (Math.random() * 6) + 1;
 
+	}
+
+	// definiert möglichen Jackpot zwischen 1.5 Mio und 60 Mio
+	public void berechneJackpot() {
+		jackpot = (int) (Math.random() * 60000000) + 1500000;
 	}
 
 	public int getZiehung() {
@@ -236,5 +243,13 @@ public class LottoModel {
 
 	public void setGewinnanzeige(String gewinnanzeige) {
 		this.gewinnanzeige = gewinnanzeige;
+	}
+
+	public int getJackpot() {
+		return jackpot;
+	}
+
+	public void setJackpot(int jackpot) {
+		this.jackpot = jackpot;
 	}
 }

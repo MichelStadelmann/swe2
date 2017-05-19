@@ -1,5 +1,5 @@
 .label {
-  -fx-font-size: 24px;
+  -fx-font-size: 20px;
   -fx-font-weight: bold;
   -fx-font-style: italic;
   -fx-text-fill: #008080;
@@ -18,3 +18,45 @@
   -fx-text-fill: #000000;
   -fx-min-width: 200;
 }
+
+.label_title{
+  -fx-font-size: 24px;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
+  -fx-text-fill: #000000;
+  -fx-border-insets: 5px;
+  -fx-border-color: black;
+  -fx-border-width: 2px;
+  -fx-min-width: 200;
+  -fx-alignment: center;
+  -fx-text-alignment: center;
+}
+
+.label_lottoschein{
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
+  -fx-text-fill: #0000FF; 
+  -fx-border-insets: 5px;
+  -fx-border-color: black;
+  -fx-border-width: 2px;
+  -fx-min-width: 200;
+  -fx-alignment: center;
+  -fx-text-alignment: center;
+}
+
+.label_jackpot{
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
+  -fx-text-fill: #000000; 
+  -fx-border-insets: 5px;
+  -fx-border-color: black;
+  -fx-border-width: 2px;
+  -fx-min-width: 200;
+  -fx-alignment: center;
+  -fx-text-alignment: center;
+}
+
+
+
