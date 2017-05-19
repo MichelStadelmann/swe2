@@ -35,6 +35,7 @@ public class Lotto extends Application {
 		// Display the GUI after all initialization is complete
 		view.start();
 		view.btnZiehung.setDisable(true);
+		view.btnKugelnRollen.setDisable(true);
 		view.btnGewinn.setDisable(true);
 	}
 

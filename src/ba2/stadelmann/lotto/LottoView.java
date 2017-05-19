@@ -1,11 +1,19 @@
 package ba2.stadelmann.lotto;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+/**
+ * Globale Konstanten werden verwendet, um "Magic Numbers" zu vermeiden
+ * 
+ * @author mosta
+ *
+ */
 
 public class LottoView {
 	private LottoModel model;
@@ -16,12 +24,14 @@ public class LottoView {
 	protected TextField[] lottoscheinZahlen = new TextField[42];
 	private static final double HEIGHT = 600;
 	private static final double WIDTH = 900;
+	private static final double ZBREITE = 40;
 	protected TextField[] tipp = new TextField[6];
 
 	private Label lblTipp;
 	private TextField zahl1;
 	protected TextField[] ziehung = new TextField[6];
 	protected Button btnZiehung;
+	protected Button btnKugelnRollen;
 	private Label lblZahlen;
 	protected TextField tippGlückszahl;
 	private Label lblZiehung;
@@ -29,6 +39,7 @@ public class LottoView {
 	protected TextField ziehungGlückszahl;
 	protected Button btnGewinn;
 	private Label lblGewinn;
+	private Label lblGewinnabrechnung;
 
 	public void setLblGewinn(Label lblGewinn) {
 		this.lblGewinn = lblGewinn;
@@ -53,23 +64,26 @@ public class LottoView {
 
 		lblGlückszahl = new Label();
 		lblGlückszahl.setText("Glückszahl");
-		root.add(lblGlückszahl, 7, 1);
+		root.add(lblGlückszahl, 0, 2);
 
 		for (int i = 0; i < 6; i++) {
 			tipp[i] = new TextField();
-			tipp[i].setMaxWidth(40);
-			root.add(tipp[i], i, 2);
+			tipp[i].setMaxWidth(ZBREITE);
+			tipp[i].setAlignment(Pos.CENTER);
+			root.add(tipp[i], i + 1, 1);
 		}
 
 		tippGlückszahl = new TextField();
-		root.add(tippGlückszahl, 7, 2);
+		tippGlückszahl.setMaxWidth(ZBREITE);
+		tippGlückszahl.setAlignment(Pos.CENTER);
+		root.add(tippGlückszahl, 1, 2);
 
 		btnTipp = new Button();
 		btnTipp.setText("Tipp abgeben");
 		root.add(btnTipp, 0, 3);
 
 		lblZiehung = new Label();
-		lblZiehung.setText("Ziehung");
+		lblZiehung.setText("Ziehung:");
 		root.add(lblZiehung, 0, 4);
 
 		btnZiehung = new Button();
@@ -78,28 +92,40 @@ public class LottoView {
 
 		for (int i = 0; i < 6; i++) {
 			ziehung[i] = new TextField();
-			root.add(ziehung[i], i, 7);
+			ziehung[i].setMaxWidth(ZBREITE);
+			ziehung[i].setAlignment(Pos.CENTER);
+			root.add(ziehung[i], i + 1, 7);
 		}
+
+		btnKugelnRollen = new Button();
+		btnKugelnRollen.setText("Kugeln rollen lassen");
+		root.add(btnKugelnRollen, 0, 6);
 
 		lblZahlen = new Label();
 		lblZahlen.setText("Zahlen");
-		root.add(lblZahlen, 0, 6);
+		root.add(lblZahlen, 0, 7);
 
 		lblGlückszahl = new Label();
 		lblGlückszahl.setText("Glückszahl");
-		root.add(lblGlückszahl, 7, 6);
+		root.add(lblGlückszahl, 0, 8);
 		;
 
 		ziehungGlückszahl = new TextField();
-		root.add(ziehungGlückszahl, 7, 7);
+		ziehungGlückszahl.setMaxWidth(ZBREITE);
+		ziehungGlückszahl.setAlignment(Pos.CENTER);
+		root.add(ziehungGlückszahl, 1, 8);
+
+		lblGewinnabrechnung = new Label();
+		lblGewinnabrechnung.setText("Gewinnabrechnung:");
+		root.add(lblGewinnabrechnung, 0, 9);
 
 		btnGewinn = new Button();
 		btnGewinn.setText("Gewinn berechnen");
-		root.add(btnGewinn, 0, 8);
+		root.add(btnGewinn, 0, 10);
 
 		lblGewinn = new Label();
 		lblGewinn.setText("???$$$$££££???");
-		root.add(lblGewinn, 0, 9);
+		root.add(lblGewinn, 0, 11);
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("Lotto.css").toExternalForm());
