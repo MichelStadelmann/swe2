@@ -145,12 +145,6 @@ public class LottoView {
 		lblGewinn.getStyleClass().add("label_jackpot");
 		root.add(lblGewinn, 0, 12);
 
-		// IconSwissLotto = new Label();
-		// Image image = new
-		// Image(getClass().getResourceAsStream("/swisslotto.png"));
-		// IconSwissLotto.setGraphic(new ImageView(image));
-		// root.add(IconSwissLotto, 15, 0);
-
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("Lotto.css").toExternalForm());
 
@@ -203,4 +197,13 @@ public class LottoView {
 	public void setLblAnzahlRichtige(Label lblAnzahlRichtige) {
 		this.lblAnzahlRichtige = lblAnzahlRichtige;
 	}
+
+	public TextField[] getTipp() {
+		return tipp;
+	}
+
+	public void setTipp(TextField[] tipp) {
+		this.tipp = tipp;
+	}
+
 }

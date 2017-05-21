@@ -3,6 +3,8 @@ package ba2.stadelmann.lotto;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -34,64 +36,92 @@ public class LottoController {
 		// Buttons und Felder werden disabled und enabled um den User zu steuern
 		view.btnTipp.setOnAction(event -> {
 
-			// falls bereits ein Tipp gemacht wurde, wird die bestehende Liste
-			// geleert und neu angelegt
-			// während der Eingabe des Tipps wird gleich auf doppelt angelegte
-			// Werte geachtet
+			for (int temp : tipp) {
+				if (view.tipp[temp].getText().isEmpty()) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Fehlermeldung");
+					alert.setHeaderText("Tipp unvollständig");
+					alert.setContentText("Bitten den Tipp vervollständigen: "
+							+ "Bitte beim Tipp folgendes beachten: ganze Zahl zwischen 1 und 42, einmalig vorkommend! Die Glückszahl zwischen 1 und 6! wählen");
 
-			model.setDoppelteWerte(false);
-
-			if (model.getTipp().isEmpty() == false) {
-
-				model.getTipp().clear();
-			}
-
-			for (int i = 0; i < 6; i++) {
-				int foo = Integer.parseInt(view.tipp[i].getText());
-				if (tipp.contains(foo)) {
-
-					model.setDoppelteWerte(true);
-					tipp.add(foo);
-
-				} else {
-					tipp.add(foo);
+					alert.showAndWait();
 				}
 			}
 
-			model.setTipp(tipp);
-
-			int gZahl = Integer.parseInt(view.tippGlückszahl.getText());
-			model.setGlückszahl(gZahl);
-
-			System.out.println(model.isPrüfungErfolgreich());
-
-			model.überprüfeEingaben(tipp, gZahl);
-
-			System.out.println(model.isPrüfungErfolgreich());
-
-			if (model.isPrüfungErfolgreich() == true) {
-
-				for (int i = 0; i < 6; i++) {
-					view.tipp[i].setEditable(false);
-				}
-
-				view.btnTipp.setDisable(true);
-
-				view.tippGlückszahl.setEditable(false);
-
-				view.btnZiehung.setDisable(false);
-			}
-
-			if (model.isPrüfungErfolgreich() == false) {
-
+			if (view.tippGlückszahl.getText().isEmpty()) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Fehlermeldung");
-				alert.setHeaderText("Fehler bei Tipp-Eingabe");
-				alert.setContentText(
-						"Bitte beim Tipp folgendes beachten: ganze Zahl zwischen 1 und 42, einmalig vorkommend! Die Glückszahl zwischen 1 und 6! wählen");
+				alert.setHeaderText("Tipp unvollständig");
+				alert.setContentText("Bitten den Tipp vervollständigen: "
+						+ "Bitte beim Tipp folgendes beachten: ganze Zahl zwischen 1 und 42, einmalig vorkommend! Die Glückszahl zwischen 1 und 6! wählen");
 
 				alert.showAndWait();
 
+			}
+
+			else {
+
+				// falls bereits ein Tipp gemacht wurde, wird die bestehende
+				// Liste
+				// geleert und neu angelegt
+				// während der Eingabe des Tipps wird gleich auf doppelt
+				// angelegte
+				// Werte geachtet
+
+				model.setDoppelteWerte(false);
+
+				if (model.getTipp().isEmpty() == false) {
+
+					model.getTipp().clear();
+				}
+
+				for (int i = 0; i < 6; i++) {
+					int foo = Integer.parseInt(view.tipp[i].getText());
+					if (tipp.contains(foo)) {
+
+						model.setDoppelteWerte(true);
+						tipp.add(foo);
+
+					} else {
+						tipp.add(foo);
+					}
+				}
+
+				model.setTipp(tipp);
+
+				int gZahl = Integer.parseInt(view.tippGlückszahl.getText());
+				model.setGlückszahl(gZahl);
+
+				System.out.println(model.isPrüfungErfolgreich());
+
+				model.überprüfeEingaben(tipp, gZahl);
+
+				System.out.println(model.isPrüfungErfolgreich());
+
+				if (model.isPrüfungErfolgreich() == true) {
+
+					for (int i = 0; i < 6; i++) {
+						view.tipp[i].setEditable(false);
+					}
+
+					view.btnTipp.setDisable(true);
+
+					view.tippGlückszahl.setEditable(false);
+
+					view.btnZiehung.setDisable(false);
+				}
+
+				if (model.isPrüfungErfolgreich() == false) {
+
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Fehlermeldung");
+					alert.setHeaderText("Fehler bei Tipp-Eingabe");
+					alert.setContentText(
+							"Bitte beim Tipp folgendes beachten: ganze Zahl zwischen 1 und 42, einmalig vorkommend! Die Glückszahl zwischen 1 und 6! wählen");
+
+					alert.showAndWait();
+
+				}
 			}
 
 		});
@@ -153,6 +183,68 @@ public class LottoController {
 			view.getLblAnzahlRichtige().setText("Anzahl Richtige: " + (Integer.toString(model.getAnzahlRichtige())));
 			view.getLblGewinn().setText(model.getGewinnanzeige());
 
+		});
+
+		// man kann so beim Eingabefeld nur int-Werte eingeben
+		// http://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
+		view.tippGlückszahl.textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					view.tippGlückszahl.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
+		// man kann so beim Eingabefeld nur int-Werte eingeben
+		// http://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
+		// Code kann hier noch verbessert werden, viele Wiederholungen. For loop
+		// warf Fehler
+		view.tipp[0].textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					view.tipp[0].setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
+		view.tipp[1].textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					view.tipp[1].setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
+		view.tipp[2].textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					view.tipp[2].setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
+		view.tipp[3].textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					view.tipp[3].setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
+		view.tipp[4].textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					view.tipp[4].setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
+		view.tipp[5].textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					view.tipp[5].setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
 		});
 
 		// Event-Handling um Fenster zu schliessen
