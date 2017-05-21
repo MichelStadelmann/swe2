@@ -37,6 +37,13 @@ public class Lotto extends Application {
 		view.btnZiehung.setDisable(true);
 		view.btnKugelnRollen.setDisable(true);
 		view.btnGewinn.setDisable(true);
+
+		for (int i = 0; i < 6; i++) {
+			// view.ziehung[i].setDisable(true);
+			view.ziehung[i].setEditable(false);
+		}
+
+		view.ziehungGlückszahl.setEditable(false);
 	}
 
 	/**

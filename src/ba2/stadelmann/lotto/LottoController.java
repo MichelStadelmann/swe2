@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.WindowEvent;
 
 /**
  * Die Controller Klasse regelt das Event-Handling, welches durch die Buttons
  * Clicks gesteuert wird. Dabei wurden lambda-Expressions verwendet. Das enablen
- * und disablen der Buttons soll den Benutzer führen und mögliche Fehlerquellen
- * reduzieren.
+ * und disablen der Buttons (resp. die Editierbarkeit der Textfelder) soll den
+ * Benutzer führen und mögliche Fehlerquellen reduzieren.
  * 
  * @author mosta
  *
@@ -29,20 +31,68 @@ public class LottoController {
 
 		// Wir registrieren uns, um auf Buttons Clicks zu registerien
 		// speichert den Tipp in einer ArrayList um ihn ans Model zu übergeben
+		// Buttons und Felder werden disabled und enabled um den User zu steuern
 		view.btnTipp.setOnAction(event -> {
 
-			view.btnTipp.setDisable(true);
+			// falls bereits ein Tipp gemacht wurde, wird die bestehende Liste
+			// geleert und neu angelegt
+			// während der Eingabe des Tipps wird gleich auf doppelt angelegte
+			// Werte geachtet
+
+			model.setDoppelteWerte(false);
+
+			if (model.getTipp().isEmpty() == false) {
+
+				model.getTipp().clear();
+			}
 
 			for (int i = 0; i < 6; i++) {
 				int foo = Integer.parseInt(view.tipp[i].getText());
-				tipp.add(foo);
+				if (tipp.contains(foo)) {
+
+					model.setDoppelteWerte(true);
+					tipp.add(foo);
+
+				} else {
+					tipp.add(foo);
+				}
 			}
+
 			model.setTipp(tipp);
 
 			int gZahl = Integer.parseInt(view.tippGlückszahl.getText());
 			model.setGlückszahl(gZahl);
 
-			view.btnZiehung.setDisable(false);
+			System.out.println(model.isPrüfungErfolgreich());
+
+			model.überprüfeEingaben(tipp, gZahl);
+
+			System.out.println(model.isPrüfungErfolgreich());
+
+			if (model.isPrüfungErfolgreich() == true) {
+
+				for (int i = 0; i < 6; i++) {
+					view.tipp[i].setEditable(false);
+				}
+
+				view.btnTipp.setDisable(true);
+
+				view.tippGlückszahl.setEditable(false);
+
+				view.btnZiehung.setDisable(false);
+			}
+
+			if (model.isPrüfungErfolgreich() == false) {
+
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Fehlermeldung");
+				alert.setHeaderText("Fehler bei Tipp-Eingabe");
+				alert.setContentText(
+						"Bitte beim Tipp folgendes beachten: ganze Zahl zwischen 1 und 42, einmalig vorkommend! Die Glückszahl zwischen 1 und 6! wählen");
+
+				alert.showAndWait();
+
+			}
 
 		});
 

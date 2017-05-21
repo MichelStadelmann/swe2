@@ -23,6 +23,10 @@ public class LottoModel {
 
 	private String gewinnanzeige = new String();
 
+	private boolean prüfungErfolgreich = false;
+
+	private boolean doppelteWerte = false;
+
 	public static void main(String[] args) {
 
 		/**
@@ -251,5 +255,70 @@ public class LottoModel {
 
 	public void setJackpot(int jackpot) {
 		this.jackpot = jackpot;
+	}
+
+	public boolean isPrüfungErfolgreich() {
+		return prüfungErfolgreich;
+	}
+
+	public void setPrüfungErfolgreich(boolean prüfungErfolgreich) {
+		this.prüfungErfolgreich = prüfungErfolgreich;
+	}
+
+	public int getTippGlückszahl() {
+		return tippGlückszahl;
+	}
+
+	public void setTippGlückszahl(int tippGlückszahl) {
+		this.tippGlückszahl = tippGlückszahl;
+	}
+
+	public void überprüfeEingaben(ArrayList tipp, int tippGlückszahl) {
+		this.tipp = tipp;
+		this.tippGlückszahl = tippGlückszahl;
+
+		int controller = 0;
+
+		// System.out.println(Integer.toString(getTippGlückszahl()));
+
+		if (getTippGlückszahl() <= 6 && getTippGlückszahl() >= 1) {
+			controller++;
+
+		}
+
+		// System.out.println(Arrays.toString(tipp.toArray()));
+
+		for (int i = 0; i < 6; i++) {
+
+			int test;
+
+			test = (int) tipp.get(i);
+
+			System.out.println(Integer.toString(test));
+
+			if (test <= 42 && test >= 1) {
+
+				controller++;
+
+			}
+
+		}
+
+		if (doppelteWerte == true) {
+			controller--;
+		}
+
+		if (controller == 7) {
+			prüfungErfolgreich = true;
+		}
+
+	}
+
+	public boolean isDoppelteWerte() {
+		return doppelteWerte;
+	}
+
+	public void setDoppelteWerte(boolean doppelteWerte) {
+		this.doppelteWerte = doppelteWerte;
 	}
 }

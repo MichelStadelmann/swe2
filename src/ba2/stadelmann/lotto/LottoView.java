@@ -29,7 +29,6 @@ public class LottoView {
 	protected TextField[] tipp = new TextField[6];
 
 	private Label lblTipp;
-	private TextField zahl1;
 	protected TextField[] ziehung = new TextField[6];
 	protected Button btnZiehung;
 	protected Button btnKugelnRollen;
@@ -42,7 +41,6 @@ public class LottoView {
 	private Label lblGewinn;
 	private Label lblGewinnabrechnung;
 	private Label lblAnzahlRichtige;
-	private Label IconSwissLotto;
 
 	public void setLblGewinn(Label lblGewinn) {
 		this.lblGewinn = lblGewinn;
