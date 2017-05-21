@@ -36,19 +36,11 @@ public class LottoController {
 		// Buttons und Felder werden disabled und enabled um den User zu steuern
 		view.btnTipp.setOnAction(event -> {
 
-			for (int temp : tipp) {
-				if (view.tipp[temp].getText().isEmpty()) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Fehlermeldung");
-					alert.setHeaderText("Tipp unvollständig");
-					alert.setContentText("Bitten den Tipp vervollständigen: "
-							+ "Bitte beim Tipp folgendes beachten: ganze Zahl zwischen 1 und 42, einmalig vorkommend! Die Glückszahl zwischen 1 und 6! wählen");
+			if (view.tippGlückszahl.getText().isEmpty() || view.tipp[0].getText().isEmpty()
+					|| view.tipp[1].getText().isEmpty() || view.tipp[2].getText().isEmpty()
+					|| view.tipp[3].getText().isEmpty() || view.tipp[4].getText().isEmpty()
+					|| view.tipp[5].getText().isEmpty() || view.tipp[5].getText().isEmpty()) {
 
-					alert.showAndWait();
-				}
-			}
-
-			if (view.tippGlückszahl.getText().isEmpty()) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Fehlermeldung");
 				alert.setHeaderText("Tipp unvollständig");
