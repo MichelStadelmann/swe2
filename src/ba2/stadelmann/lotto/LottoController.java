@@ -14,7 +14,9 @@ import javafx.stage.WindowEvent;
  * Die Controller Klasse regelt das Event-Handling, welches durch die Buttons
  * Clicks gesteuert wird. Dabei wurden lambda-Expressions verwendet. Das enablen
  * und disablen der Buttons (resp. die Editierbarkeit der Textfelder) soll den
- * Benutzer führen und mögliche Fehlerquellen reduzieren.
+ * Benutzer führen und mögliche Fehlerquellen reduzieren. Zusätzlich werden
+ * viele Eingaben über das Model validiert. Der Tipp wird in einer Array List
+ * gespeichert und für weitere Operationen ans Model übergeben.
  * 
  * @author mosta
  *
@@ -31,11 +33,10 @@ public class LottoController {
 		this.model = model;
 		this.view = view;
 
-		// Wir registrieren uns, um auf Buttons Clicks zu registerien
-		// speichert den Tipp in einer ArrayList um ihn ans Model zu übergeben
-		// Buttons und Felder werden disabled und enabled um den User zu steuern
+		// Wir registrieren uns für Buttons Clicks
 		view.btnTipp.setOnAction(event -> {
 
+			// Prüfung, ob es noch Felder ohne Eingabe hat
 			if (view.tippGlückszahl.getText().isEmpty() || view.tipp[0].getText().isEmpty()
 					|| view.tipp[1].getText().isEmpty() || view.tipp[2].getText().isEmpty()
 					|| view.tipp[3].getText().isEmpty() || view.tipp[4].getText().isEmpty()
@@ -51,14 +52,14 @@ public class LottoController {
 
 			}
 
-			else {
+			/**
+			 * Sind alle Felder befüllt, erfolgt die Verrechnung. Falls bereits
+			 * ein Tipp gemacht wurde, wird die bestehende Liste geleert und neu
+			 * angelegt. Während der Eingabe des Tipps wird gleich auf doppelt
+			 * angelegte Werte geachtet.
+			 */
 
-				// falls bereits ein Tipp gemacht wurde, wird die bestehende
-				// Liste
-				// geleert und neu angelegt
-				// während der Eingabe des Tipps wird gleich auf doppelt
-				// angelegte
-				// Werte geachtet
+			else {
 
 				model.setDoppelteWerte(false);
 
@@ -84,11 +85,11 @@ public class LottoController {
 				int gZahl = Integer.parseInt(view.tippGlückszahl.getText());
 				model.setGlückszahl(gZahl);
 
-				System.out.println(model.isPrüfungErfolgreich());
+				// System.out.println(model.isPrüfungErfolgreich());
 
 				model.überprüfeEingaben(tipp, gZahl);
 
-				System.out.println(model.isPrüfungErfolgreich());
+				// System.out.println(model.isPrüfungErfolgreich());
 
 				if (model.isPrüfungErfolgreich() == true) {
 
@@ -191,6 +192,7 @@ public class LottoController {
 		// http://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
 		// Code kann hier noch verbessert werden, viele Wiederholungen. For loop
 		// warf Fehler
+
 		view.tipp[0].textProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")) {

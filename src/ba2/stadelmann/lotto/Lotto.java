@@ -33,16 +33,18 @@ public class Lotto extends Application {
 		controller = new LottoController(model, view);
 
 		// Display the GUI after all initialization is complete
+		// Disabled einzelne Buttons, welche erst später enabled sein sollen
 		view.start();
 		view.btnZiehung.setDisable(true);
 		view.btnKugelnRollen.setDisable(true);
 		view.btnGewinn.setDisable(true);
 
+		// die Ziehungs-Zahlen sollen nicht bearbeitbar sein
 		for (int i = 0; i < 6; i++) {
-			// view.ziehung[i].setDisable(true);
 			view.ziehung[i].setEditable(false);
 		}
 
+		// die Ziehungs-Glückszahl soll nicht bearbeitbar sein
 		view.ziehungGlückszahl.setEditable(false);
 	}
 
