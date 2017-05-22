@@ -1,4 +1,4 @@
-package ba2.stadelmann.lotto;
+package ba1.stadelmann.lotto;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
