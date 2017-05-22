@@ -10,7 +10,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- * Globale Konstanten werden verwendet, um "Magic Numbers" zu vermeiden
+ * Globale Konstanten werden verwendet, um "Magic Numbers" zu vermeiden Das GUI
+ * Design findet über die Lotto.css Datei statt. Es sind globale Formate gsetzt,
+ * welche jeweils übersteuert werden. Es wird ein GridPane Layout verwendet.
  * 
  * @author mosta
  *
@@ -118,7 +120,6 @@ public class LottoView {
 		lblGlückszahl.setText("Glückszahl");
 		lblGlückszahl.getStyleClass().add("label_lottoschein");
 		root.add(lblGlückszahl, 8, 8);
-		;
 
 		ziehungGlückszahl = new TextField();
 		ziehungGlückszahl.setMaxWidth(ZBREITE);
@@ -164,7 +165,8 @@ public class LottoView {
 	}
 
 	/**
-	 * Getter for the stage, so that the controller can access window events
+	 * Getter for the stage, so that the controller can access window events Ab
+	 * hier getter und setter Section
 	 */
 	public Stage getStage() {
 		return stage;
